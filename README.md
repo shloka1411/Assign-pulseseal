@@ -23,6 +23,327 @@ All CRUD operations are handled through backend APIs, ensuring that the public l
 
 ---
 
+# 🚀 How to Run the Project Locally
+
+Follow the steps below to set up and run the project locally.
+
+## Prerequisites
+
+Make sure the following dependencies are installed on your system:
+
+- Node.js
+- npm
+- MongoDB
+
+You can verify Node.js and npm installation using:
+
+```bash
+node -v
+npm -v
+```
+
+MongoDB must be running locally on the default MongoDB port.
+
+The project uses the following local MongoDB database:
+
+```text
+mongodb://localhost:27017/pulseseal
+```
+
+---
+
+## 1. Clone the Repository
+
+Clone the project from GitHub:
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+```
+
+Navigate to the project directory:
+
+```bash
+cd <PROJECT_FOLDER_NAME>
+```
+
+The project contains separate frontend and backend applications:
+
+```text
+project/
+├── frontend/
+└── backend/
+```
+
+---
+
+## 2. Backend Setup
+
+Open a terminal and navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+Install backend dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file inside the `backend` directory.
+
+You can copy the provided `.env.example` file:
+
+```bash
+cp .env.example .env
+```
+
+The backend environment variables should contain:
+
+```env
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/pulseseal
+JWT_SECRET=change-me
+JWT_EXPIRES_IN=7d
+ADMIN_NAME=Super Admin
+ADMIN_EMAIL=admin@pulseseal.com
+ADMIN_PASSWORD=Admin@123
+```
+
+> For production environments, replace the default JWT secret and admin credentials with secure values.
+
+---
+
+## 3. Start MongoDB
+
+Make sure MongoDB is running before starting the backend.
+
+If MongoDB is installed using Homebrew on macOS, run:
+
+```bash
+brew services start mongodb-community
+```
+
+Alternatively, start your local MongoDB service using your system-specific MongoDB setup.
+
+The backend connects to:
+
+```text
+mongodb://localhost:27017/pulseseal
+```
+
+---
+
+## 4. Seed the Database
+
+The project includes a seed script that creates the initial admin account and default pricing plans.
+
+From the `backend` directory, run:
+
+```bash
+npm run seed
+```
+
+The seed script will:
+
+- Connect to MongoDB
+- Create the initial admin user if it does not already exist
+- Insert the default PulseSeal pricing plans
+
+Default admin credentials are based on the backend environment variables:
+
+```text
+Email: admin@pulseseal.com
+Password: Admin@123
+```
+
+If you change `ADMIN_EMAIL` or `ADMIN_PASSWORD` in the `.env` file, use the updated credentials to log in.
+
+---
+
+## 5. Run the Backend Server
+
+For development mode:
+
+```bash
+npm run dev
+```
+
+Or run the backend normally:
+
+```bash
+npm start
+```
+
+The backend server will run at:
+
+```text
+http://localhost:5000
+```
+
+You can verify that the backend is running by opening:
+
+```text
+http://localhost:5000/health
+```
+
+Expected response:
+
+```json
+{
+  "success": true,
+  "message": "Backend is running"
+}
+```
+
+---
+
+## 6. Frontend Setup
+
+Open a new terminal window.
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install frontend dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env.local` file inside the `frontend` directory.
+
+You can copy the provided `.env.example` file:
+
+```bash
+cp .env.example .env.local
+```
+
+The frontend environment variable should contain:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
+```
+
+This variable connects the Next.js frontend to the Express backend.
+
+---
+
+## 7. Run the Frontend
+
+From the `frontend` directory, run:
+
+```bash
+npm run dev
+```
+
+The frontend application will run at:
+
+```text
+http://localhost:3000
+```
+
+Open the URL in your browser to access the PulseSeal landing page.
+
+---
+
+## 8. Access the Admin Dashboard
+
+Open the login page from the application and use the seeded admin credentials:
+
+```text
+Email: admin@pulseseal.com
+Password: Admin@123
+```
+
+After successful login, the admin is redirected to the Pricing Management Dashboard.
+
+The admin can:
+
+- Create pricing plans
+- View pricing plans
+- Update existing pricing plans
+- Delete pricing plans
+
+Changes made from the Admin Dashboard are stored in MongoDB and are reflected on the landing page when the latest pricing data is fetched from the backend API.
+
+---
+
+## 9. Production Build
+
+To create a production build of the frontend, navigate to the `frontend` directory and run:
+
+```bash
+npm run build
+```
+
+After the build completes successfully, start the production server using:
+
+```bash
+npm start
+```
+
+The Next.js production application will run on:
+
+```text
+http://localhost:3000
+```
+
+For the backend, navigate to the `backend` directory and run:
+
+```bash
+npm start
+```
+
+The backend will run on:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## Local Development Services
+
+| Service | URL |
+|---|---|
+| Frontend | `http://localhost:3000` |
+| Backend API | `http://localhost:5000` |
+| Backend Health Check | `http://localhost:5000/health` |
+| MongoDB | `mongodb://localhost:27017/pulseseal` |
+
+---
+
+## Local Setup Summary
+
+Run the backend:
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run seed
+npm run dev
+```
+
+Run the frontend in a separate terminal:
+
+```bash
+cd frontend
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Then open:
+
+```text
+http://localhost:3000
+``` ye dekh shi hai kya
+
 # 🎯 Assignment Objective
 
 The objective of this assignment was to demonstrate a complete understanding of frontend-backend communication by:
